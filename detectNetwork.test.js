@@ -215,35 +215,45 @@ describe('Maestro', function() {
 
 });
 
+var ChinaU_pre = []; // just for China Union Pay prefix
+for (var i = 622126; i <= 622925; i++){
+  ChinaU_pre.push(i);
+}
+for (var i = 624; i <= 626; i++) {
+  ChinaU_pre.push(i);
+}
+for (var i = 6282; i <= 6288; i++) {
+  ChinaU_pre.push(i);
+}
 
-// describe('China UnionPay', function(){
-//   prefix = ChinaUP.prefix;
-//   digitLength = ChinaUP.digitLength;
-//
-//
-//   var template = "12345123451234512345"
-//     template = template.split("");
-//   var Tests = [];
-//
-//   for (var i=0; i < prefix.length; i++){
-//     for (var j = 0; j < digitLength.length; j++){
-//       var dialogue = "has a prefix of " + prefix[i] + " and a length of " + digitLength[j];
-//
-//       template.unshift(prefix[i]); // => [prefix#, "1", "2" , "3", "4"...  ]
-//         var testNum = template.join("").slice(0,digitLength[j]);
-//       TestInput.push(testNum);
-//
-//       it(dialogue, function() {
-//         expect(detectNetwork(testNum)).to.equal('China UnionPay');
-//         // detectNetwork(testNum).should.equal('Maestro');
-//       });
-//
-//     }
-//   }
-// });
+describe('China UnionPay', function(){
+  prefix = ChinaU_pre;
+  digitLength = [16,17,18,19];
+
+
+  var template = "12345123451234512345"
+    template = template.split("");
+  var Tests = [];
+
+  for (var i=0; i < prefix.length; i++){
+    for (var j = 0; j < digitLength.length; j++){
+      var dialogue = "has a prefix of " + prefix[i] + " and a length of " + digitLength[j];
+
+      template.unshift(prefix[i]); // => [prefix#, "1", "2" , "3", "4"...  ]
+        var testNum = template.join("").slice(0,digitLength[j]);
+      TestInput.push(testNum);
+
+      it(dialogue, function() {
+        expect(detectNetwork(testNum)).to.equal('China UnionPay');
+        // detectNetwork(testNum).should.equal('Maestro');
+      });
+
+    }
+  }
+});
 
 describe('Switch', function(){
-  prefix = [4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759];
+  prefix = [4903, 4905, 4911, 4936, 564182, 633110, 6333, 6759];
   digitLength = [16,18,19];
 
   var template = "12345123451234512345"
